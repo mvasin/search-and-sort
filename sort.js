@@ -1,20 +1,15 @@
-function insertSort(inputArr) {
-  // won't mutate input
-  let arr = [...inputArr]
-  // [0..sortedTill] is a sorted part
-  let sortedTill = 0;
-  if (arr.length < 2) return arr;
-  for (let i = 0; i < arr.length; i++) {
-    // iterating from current to the left
-    for (let q = (i + 1); q > 0; q--) {
-      if (arr[q] < arr[q - 1]) {
-        const temp = arr[q - 1]
-        arr[q - 1] = arr[q]
-        arr[q] = temp
-      }
+
+function bubbleSort(inputArr) {
+  const arr = [...inputArr];
+  for (let i = arr.length - 1; i >= 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (arr[j] <= arr[j + 1]) continue;
+      const temp = arr[j];
+      arr[j] = arr[j + 1];
+      arr[j + 1] = temp;
     }
   }
-  return arr
+  return arr;
 }
 
 function countingSort(inputArr) {
@@ -25,15 +20,13 @@ function countingSort(inputArr) {
     }
     countArr[el] = countArr[el] === undefined ? 1 : countArr[el] + 1
   });
-  console.log('inputArr', inputArr)
-  console.log('count array before', countArr)
-  console.log('countArr length', countArr.length)
+
   for (let i = 1; i < countArr.length; i++ ) {
     if (countArr[i] === undefined) countArr[i] = 0;
     if (countArr[i - 1] === undefined) countArr[i - 1] = 0;
     countArr[i] = countArr[i-1] + countArr[i];
   }
-  console.log('count array after', countArr)
+
   let resultArr = [];
   inputArr.forEach(value => {
     const newIndex = countArr[value] - 1;
@@ -44,5 +37,5 @@ function countingSort(inputArr) {
   return resultArr;
 }
 
-exports.insertSort = insertSort
+exports.bubbleSort = bubbleSort
 exports.countingSort = countingSort

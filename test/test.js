@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { linearSearch, binarySearch } = require('../search.js')
-const { insertSort, countingSort } = require('../sort.js')
+const { bubbleSort, countingSort } = require('../sort.js')
 
 describe('Sorting algorithms', function() {
   describe('#linearSearch()', () => {
@@ -45,21 +45,19 @@ describe('Sorting algorithms', function() {
     });
   });
 
-  describe('#insertSort()', () => {
+  describe('#bubbleSort()', () => {
     it('should not error on empty array', function() {
       const input = [];
       const expectedOutput = [];
-      const result = insertSort(input);
-      const asExpected = expectedOutput.every((v, i) => v === result[i]);
-      assert.equal(asExpected, true)
+      const result = bubbleSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
     })
 
     it('should sort', function() {
-      const input = [3, 5, 1, 11];
-      const expectedOutput = [1, 3, 5, 11];
-      const result = insertSort(input);
-      const asExpected = expectedOutput.every((v, i) => v === result[i]);
-      assert.equal(asExpected, true)
+      const input = [3, 5, 1, 11, 3];
+      const expectedOutput = [1, 3, 3, 5, 11];
+      const result = bubbleSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
     })
   })
 
@@ -71,11 +69,23 @@ describe('Sorting algorithms', function() {
       assert.deepStrictEqual(result, expectedOutput);
     })
 
-    it.only('should sort', function() {
+    it('should sort', function() {
       const input = [3, 5, 1, 11, 3];
       const expectedOutput = [1, 3, 3, 5, 11];
       const result = countingSort(input);
       assert.deepStrictEqual(result, expectedOutput)
+    })
+
+    it('should work with single elements', function() {
+      const input = [5];
+      const expectedOutput = [5];
+      const result = countingSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+
+    it('should throw on unsupported input', function() {
+      const input = [-4];
+      assert.throws(() => countingSort(input))
     })
   })
 });
