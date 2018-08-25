@@ -119,7 +119,26 @@ function mergeSort(inputArr) {
   return sortedSum;
 }
 
+function quickSort(inputArr) {
+  if (inputArr.length <= 1) return inputArr;
+
+  const less = [], equal = [], more = [];
+
+  const pivot = inputArr[0];
+
+  inputArr.forEach(el => {
+    if (el < pivot) less.push(el)
+    if (el === pivot) equal.push(el)
+    if (el > pivot) more.push(el)
+  })
+
+  const sortedLess = quickSort(less);
+  const sortedMore = quickSort(more);
+  return [...sortedLess, ...equal, ...sortedMore]
+}
+
 exports.bubbleSort = bubbleSort
 exports.countingSort = countingSort
 exports.insertionSort = insertionSort
 exports.mergeSort = mergeSort
+exports.quickSort = quickSort
