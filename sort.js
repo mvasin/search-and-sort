@@ -1,6 +1,6 @@
 
-function bubbleSort(unsortedArr) {
-  const arr = [...unsortedArr];
+function bubbleSort(inputArr) {
+  const arr = [...inputArr];
   for (let i = arr.length - 1; i >= 0; i--) {
     for (let j = 0; j < i; j++) {
       if (arr[j] <= arr[j + 1]) continue;
@@ -52,9 +52,9 @@ function insertionSort(inputArr) {
   return arr;
 }
 
-function countingSort(unsortedArr) {
+function countingSort(inputArr) {
   const countArr = [];
-  unsortedArr.forEach(el => {
+  inputArr.forEach(el => {
     if (el < 0 || !Number.isInteger(el)) {
       throw Error('elements must be non-negative integers');
     }
@@ -68,7 +68,7 @@ function countingSort(unsortedArr) {
   }
 
   let resultArr = [];
-  unsortedArr.forEach(value => {
+  inputArr.forEach(value => {
     const newIndex = countArr[value] - 1;
     resultArr[newIndex] = value;
     countArr[value]--;
@@ -77,6 +77,49 @@ function countingSort(unsortedArr) {
   return resultArr;
 }
 
+function mergeSort(inputArr) {
+  // base case
+  if (inputArr.length <= 1) return inputArr;
+  const middle = Math.round(inputArr.length / 2);
+  const middleIndex = middle - 1;
+
+  // if there are 2 elements, middle is 1, middle
+  // index is 0, so first array must include middle index,
+  // and second array must not
+  const left = inputArr.slice(0, middleIndex + 1);
+  const right = inputArr.slice(middleIndex + 1);
+
+  // throw Error;
+
+  const sortedLeft = mergeSort(left);
+  const sortedRight = mergeSort(right);
+
+  // merge sorted arrays
+  sortedSum = [];
+
+  // repeat until any of the two arrays to merge are empty
+  while (sortedLeft.length > 0 || sortedRight.length > 0) {
+    if (sortedLeft.length === 0) {
+      sortedSum.push(sortedRight.shift());
+      continue;
+    }
+
+    if (sortedRight.length === 0) {
+      sortedSum.push(sortedLeft.shift());
+      continue;
+    }
+
+    if (sortedLeft[0] > sortedRight[0]) {
+      sortedSum.push(sortedRight.shift());
+    } else {
+      sortedSum.push(sortedLeft.shift());
+    }
+  }
+
+  return sortedSum;
+}
+
 exports.bubbleSort = bubbleSort
 exports.countingSort = countingSort
 exports.insertionSort = insertionSort
+exports.mergeSort = mergeSort

@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { linearSearch, binarySearch } = require('../search.js')
-const { bubbleSort, countingSort, insertionSort } = require('../sort.js')
+const { bubbleSort, countingSort, insertionSort, mergeSort } = require('../sort.js')
 
 describe('Searching algorithms', function() {
   describe('#linearSearch()', () => {
@@ -111,6 +111,29 @@ describe('Searching algorithms', function() {
     it('should throw on unsupported input', function() {
       const input = [-4];
       assert.throws(() => countingSort(input))
+    })
+  })
+
+  describe('#mergeSort()', () => {
+    it('should not error on empty array', function() {
+      const input = [];
+      const result = mergeSort(input);
+      const expectedOutput = [];
+      assert.deepStrictEqual(result, expectedOutput);
+    })
+
+    it('should sort', function() {
+      const input = [3, 5, 1, 11, 3];
+      const expectedOutput = [1, 3, 3, 5, 11];
+      const result = mergeSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+
+    it('should work with single elements', function() {
+      const input = [5];
+      const expectedOutput = [5];
+      const result = mergeSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
     })
   })
 });
