@@ -1,8 +1,8 @@
 const assert = require('assert');
 const { linearSearch, binarySearch } = require('../search.js')
-const { bubbleSort, countingSort } = require('../sort.js')
+const { bubbleSort, countingSort, insertionSort } = require('../sort.js')
 
-describe('Sorting algorithms', function() {
+describe('Searching algorithms', function() {
   describe('#linearSearch()', () => {
     const testArr = [1, 7, 4, 2, 6, 3];
 
@@ -44,7 +44,9 @@ describe('Sorting algorithms', function() {
       assert.equal(binarySearch(testArr, 7).tries < maxTries, true);
     });
   });
+});
 
+describe('Searching algorithms', function() {
   describe('#bubbleSort()', () => {
     it('should not error on empty array', function() {
       const input = [];
@@ -57,6 +59,29 @@ describe('Sorting algorithms', function() {
       const input = [3, 5, 1, 11, 3];
       const expectedOutput = [1, 3, 3, 5, 11];
       const result = bubbleSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+  })
+
+  describe('#insertionSort()', () => {
+    it('should not error on empty array', function() {
+      const input = [];
+      const expectedOutput = [];
+      const result = insertionSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+
+    it('should not break on single element', function() {
+      const input = [1];
+      const expectedOutput = [1];
+      const result = insertionSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+
+    it('should sort', function() {
+      const input = [3, 5, 1, 11, 3];
+      const expectedOutput = [1, 3, 3, 5, 11];
+      const result = insertionSort(input);
       assert.deepStrictEqual(result, expectedOutput)
     })
   })
