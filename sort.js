@@ -78,45 +78,40 @@ function countingSort(inputArr) {
 }
 
 function mergeSort(inputArr) {
-  // base case
-  if (inputArr.length <= 1) return inputArr;
-  const middle = Math.round(inputArr.length / 2);
-  const middleIndex = middle - 1;
+  if (inputArr.length <= 1) return inputArr
 
-  // if there are 2 elements, middle is 1, middle
-  // index is 0, so first array must include middle index,
-  // and second array must not
-  const left = inputArr.slice(0, middleIndex + 1);
-  const right = inputArr.slice(middleIndex + 1);
+  const middle = Math.round(inputArr.length / 2)
+  const leftArr = inputArr.slice(0, middle)
+  const rightArr = inputArr.slice(middle)
 
-  // throw Error;
+  const sortedLeft = mergeSort(leftArr)
+  const sortedRight = mergeSort(rightArr)
 
-  const sortedLeft = mergeSort(left);
-  const sortedRight = mergeSort(right);
+  // merge
+  const mergedArr = []
 
-  // merge sorted arrays
-  sortedSum = [];
-
-  // repeat until any of the two arrays to merge are empty
-  while (sortedLeft.length > 0 || sortedRight.length > 0) {
+  while (sortedLeft.length !== 0 || sortedRight.length !== 0) {
+    // one is empty
     if (sortedLeft.length === 0) {
-      sortedSum.push(sortedRight.shift());
+      mergedArr.push(sortedRight.shift());
       continue;
     }
 
     if (sortedRight.length === 0) {
-      sortedSum.push(sortedLeft.shift());
+      mergedArr.push(sortedLeft.shift());
       continue;
     }
 
-    if (sortedLeft[0] > sortedRight[0]) {
-      sortedSum.push(sortedRight.shift());
+    // both are not empty
+    if (sortedLeft[0] <= sortedRight[0]) {
+      mergedArr.push(sortedLeft.shift())
     } else {
-      sortedSum.push(sortedLeft.shift());
+      mergedArr.push(sortedRight.shift())
     }
   }
 
-  return sortedSum;
+  console.log(sortedLeft, 'and', sortedRight, 'are combined into', mergedArr)
+  return mergedArr
 }
 
 function quickSort(inputArr) {
