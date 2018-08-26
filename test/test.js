@@ -92,6 +92,20 @@ describe('Searching algorithms', function() {
       const result = insertionSort(input);
       assert.deepStrictEqual(result, expectedOutput)
     })
+
+    it('should be able to move smaller el to the left', function() {
+      const input = [5, 5, 5, 5, 1];
+      const expectedOutput = [1, 5, 5, 5, 5];
+      const result = insertionSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+
+    it('should be able to sort sorted arra', function() {
+      const input = [1, 5, 5, 5, 5];
+      const expectedOutput = [1, 5, 5, 5, 5];
+      const result = insertionSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
   })
 
   describe('#countingSort()', () => {

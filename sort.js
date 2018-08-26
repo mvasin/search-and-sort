@@ -13,44 +13,36 @@ function bubbleSort(inputArr) {
   return arr
 }
 
-function insertionSort(inputArr) {
-  const arr = [...inputArr];
-
-  // first is already sorted
-  // [0..i] - sorted subarray
-  // [i+1..arr.length-1] - yet unsorted
+function insertionSort(arr) {
+  console.log(arr)
+  // start with second, because first is already sorted
   for (let i = 1; i < arr.length; i++) {
-    const elToInsert = arr[i];
-
+    const current = arr[i];
+    // with j we iterate over sorted part of the array, it holds
+    // the item under considiration from sorted part of the input array.
     let j;
-
-    // iterate over sorted array [0..i-1] to see where elToInsert fits
-    // arr[i] does not belong to the sorted subarray yet, so
-    // we don't iterate over it
     for (j = i - 1; j >= 0; j--) {
-
-      // if elToInsert is bigger then current, elToInsert
-      // will have to fall through further, and we move current sorted
-      // element to the next right position to free up space for
-      // future insertion
-      if (arr[j] > elToInsert) {
-
-        // it's OK to overwrite the first element from unsorted part,
-        // because we hold it in elToInsert variable
+      if (arr[j] > current) {
+        // "move" item to the right if we will have to dig deeper
+        // this will overwrite arr[i] on first iteration; it will increase
+        // sorted array size and we won't lose arr[i] because we hold it
+        // in `current`
         arr[j + 1] = arr[j]
-      } else break;
+      } else {
+        break
+      }
     }
-    
-    // now j contains the index of the first element in sorted array
-    // that is bigger then elToInsert. So elToInsert must be inserted
-    // to the right.
+    // This was hard to figure out.
+    // 1) If we broke out of the loop because arr[j] is bigger then current,
+    // we need to save current AFTER arr[j].
+    // 2) If we never encountered a bigger sorted item then the one we are
+    // currently inserting, we'll go through the whole loop, and it will
+    // decrease j one more time on exit, to -1. We need 0.
     //
-    // Edge case 1: if all elements in the sorted array happened to
-    // be smaller, the very first element will be duplicated at [0] and [1].
-    arr[j + 1] = elToInsert;
+    // So for both cases we need to increase j by 1 to put `current` there.
+    arr[j + 1] = current;
   }
-
-  return arr;
+  return arr
 }
 
 function countingSort(inputArr) {
