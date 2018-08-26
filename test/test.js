@@ -56,6 +56,13 @@ describe('Searching algorithms', function() {
       assert.deepStrictEqual(result, expectedOutput)
     })
 
+    it('should not error on single element array', function() {
+      const input = [1];
+      const expectedOutput = [1];
+      const result = bubbleSort(input);
+      assert.deepStrictEqual(result, expectedOutput)
+    })
+
     it('should sort', function() {
       const input = [3, 5, 1, 11, 3];
       const expectedOutput = [1, 3, 3, 5, 11];
