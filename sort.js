@@ -110,7 +110,6 @@ function mergeSort(inputArr) {
     }
   }
 
-  console.log(sortedLeft, 'and', sortedRight, 'are combined into', mergedArr)
   return mergedArr
 }
 
