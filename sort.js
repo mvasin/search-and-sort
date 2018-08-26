@@ -77,40 +77,35 @@ function countingSort(inputArr) {
   return resultArr;
 }
 
-function mergeSort(inputArr) {
-  if (inputArr.length <= 1) return inputArr
+function mergeSort(arr) {
+  // base case
+  if (arr.length <= 1) return arr;
 
-  const middle = Math.round(inputArr.length / 2)
-  const leftArr = inputArr.slice(0, middle)
-  const rightArr = inputArr.slice(middle)
+  const middle = Math.round(arr.length / 2)
+  const left = arr.slice(0, middle)
+  const right = arr.slice(middle)
 
-  const sortedLeft = mergeSort(leftArr)
-  const sortedRight = mergeSort(rightArr)
+  // recurse
+  const sortedLeft = mergeSort(left)
+  const sortedRight = mergeSort(right)
 
   // merge
-  const mergedArr = []
-
-  while (sortedLeft.length !== 0 || sortedRight.length !== 0) {
-    // one is empty
+  const sorted = []
+  while (sortedLeft.length > 0 || sortedRight.length > 0) {
     if (sortedLeft.length === 0) {
-      mergedArr.push(sortedRight.shift());
-      continue;
+      sorted.push(sortedRight.shift())
+      continue
     }
-
     if (sortedRight.length === 0) {
-      mergedArr.push(sortedLeft.shift());
-      continue;
+      sorted.push(sortedLeft.shift())
+      continue
     }
 
-    // both are not empty
-    if (sortedLeft[0] <= sortedRight[0]) {
-      mergedArr.push(sortedLeft.shift())
-    } else {
-      mergedArr.push(sortedRight.shift())
-    }
+    sortedLeft[0] <= sortedRight[0]
+      ? sorted.push(sortedLeft.shift())
+      : sorted.push(sortedRight.shift())
   }
-
-  return mergedArr
+  return sorted
 }
 
 function quickSort(inputArr) {
